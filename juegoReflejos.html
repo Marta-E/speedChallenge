@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Check your speed</title>
+    <style type="text/css">
+        #form {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;    
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Check your speed!</h1>
+    <h2>Click on the forms as fast as you can</h2>
+    <p>Reaction time: <span id="speedTime"></span></p>
+    <div id="form"></div>
+
+    <script type="text/javascript">
+        var start = new Date().getTime();
+
+        function restartForm() {
+            var top=Math.random()*400;
+            var left=Math.random()*400;
+            var width=(Math.random()*200)+100;
+            var color = randomColor();
+
+            if(Math.random()>0.5){
+                document.getElementById("form").style.borderRadius ="50%";
+            }
+            else{
+                document.getElementById("form").style.borderRadius ="0%";
+            }
+
+
+            start = new Date().getTime();
+            document.getElementById("form").style.display = "block";
+            document.getElementById("form").style.top = top+"px";
+            document.getElementById("form").style.left = left+"px";
+            document.getElementById("form").style.width = width+"px"
+            document.getElementById("form").style.height = width+"px"
+            document.getElementById("form").style.backgroundColor = color;
+        }
+
+        function randomColor(){
+            var letters = '0123456789ABCDEF'.split('');
+                var color = '#';
+                for (var i = 0; i < 6; i++ ) {
+                    color += letters[Math.round(Math.random() * 15)];
+                }
+                return color;
+}
+
+        document.getElementById("form").onclick = function () {
+            document.getElementById("form").style.display = "none";
+            var end = new Date().getTime();
+            var speed = end - start;
+            document.getElementById("speedTime").innerHTML = speed + "s";
+            setTimeout(restartForm, 1000);
+        }
+    </script>
+</body>
+
+</html>
